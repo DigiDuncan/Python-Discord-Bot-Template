@@ -1,6 +1,8 @@
 from discord.ext import commands
 from templatebot.discordplus import commandsplus
 
+from templatebot.lib import checks
+
 
 class FunCog(commands.Cog):
     """Commands for fun."""
@@ -11,7 +13,7 @@ class FunCog(commands.Cog):
     @commandsplus.command(
         hidden = True
     )
-    @commands.is_owner()
+    @checks.is_mod()
     async def say(self, ctx, *, message: str):
         await ctx.message.delete(delay=0)
         await ctx.send(message)
