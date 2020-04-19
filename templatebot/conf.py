@@ -23,20 +23,20 @@ logchannelid = None
 
 # File paths
 datadir = getDataDir()
-confpath = datadir / "sizebot.conf"
+confpath = datadir / "templatebot.conf"
 
 
 def load():
     global prefix, name, activity, authtoken, admins, logchannelid
     configDict = toml.load(confpath)
 
-    # SizeBot
-    if utils.hasPath(configDict, "sizebot.prefix"):
-        prefix = utils.getPath(configDict, "sizebot.prefix")
-    if utils.hasPath(configDict, "sizebot.name"):
-        name = utils.getPath(configDict, "sizebot.name")
-    if utils.hasPath(configDict, "sizebot.activity"):
-        activity = utils.getPath(configDict, "sizebot.activity")
+    # templatebot
+    if utils.hasPath(configDict, "templatebot.prefix"):
+        prefix = utils.getPath(configDict, "templatebot.prefix")
+    if utils.hasPath(configDict, "templatebot.name"):
+        name = utils.getPath(configDict, "templatebot.name")
+    if utils.hasPath(configDict, "templatebot.activity"):
+        activity = utils.getPath(configDict, "templatebot.activity")
 
     # Discord
     if utils.hasPath(configDict, "discord.authtoken"):
