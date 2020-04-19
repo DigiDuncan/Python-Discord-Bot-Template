@@ -1,9 +1,9 @@
 import asyncio
 
 from discord.ext import commands
-from sizebot.discordplus import commandsplus
+from templatebot.discordplus import commandsplus
 
-from sizebot.lib.constants import ids
+from templatebot.lib.constants import ids
 
 tasks = {}
 
@@ -51,7 +51,7 @@ class FunCog(commands.Cog):
         usage = "<message>"
     )
     async def sing(self, ctx, *, s: str):
-        """Make SizeBot sing a message!"""
+        """Make templatebot sing a message!"""
         await ctx.message.delete(delay=0)
         newstring = f":musical_score: *{s}* :musical_note:"
         await ctx.send(newstring)

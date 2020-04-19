@@ -7,15 +7,11 @@ from discord.ext import commands
 
 from digiformatter import styles, logger as digilogger
 
-from sizebot import __version__
-from sizebot import conf
-from sizebot.cogs import edge
-from sizebot.lib import language, objs, proportions, status, units
-from sizebot.lib.discordlogger import DiscordHandler
-from sizebot.plugins import monika, meicros
+from templatebot import conf
+from templatebot.lib.discordlogger import DiscordHandler
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("sizebot")
+logger = logging.getLogger("templatebot")
 logger.handlers = []
 logger.propagate = False
 dfhandler = digilogger.DigiFormatterHandler()
@@ -42,21 +38,9 @@ initial_cogs = [
     "thistracker",
     "winks"
 ]
-initial_extensions = [
-    "banned",
-    "errorhandler",
-    "telemetry",
-    "tupperbox"
-]
 
 
 def main():
-    try:
-        conf.load()
-    except FileNotFoundError as e:
-        logger.error(f"Configuration file not found: {e.filename}")
-        return
-
     booting = True
     launchtime = datetime.now()
 
@@ -64,10 +48,8 @@ def main():
 
     bot.remove_command("help")
 
-    for extension in initial_extensions:
-        bot.load_extension("sizebot.extensions." + extension)
     for cog in initial_cogs:
-        bot.load_extension("sizebot.cogs." + cog)
+        bot.load_extension("templatebot.cogs." + cog)
 
     async def on_first_ready():
         # Set up logging.
@@ -75,22 +57,13 @@ def main():
         discordhandler = DiscordHandler(logChannel)
         logger.addHandler(discordhandler)
 
-        # Start the language engine.
-        language.load()
-
-        # Load the units and objects.
-        await units.init()
-        await objs.init()
-
         # Print the splash screen.
         BANNER = digilogger.addLogLevel("banner", fg="orange_red_1", bg="deep_sky_blue_4b", attr="bold")
         LOGIN = digilogger.addLogLevel("login", fg="cyan")
-        # Obviously we need the banner printed in the terminal
-        logger.log(BANNER, conf.banner + " v" + __version__)
         logger.log(LOGIN, f"Logged in as: {bot.user.name} ({bot.user.id})\n------")
 
         # Add a special message to bot status if we are running in debug mode
-        activity = discord.Game(name = "Ratchet and Clank: Size Matters")
+        activity = discord.Game(name = "TemplateBot")
         if sys.gettrace() is not None:
             activity = discord.Activity(type=discord.ActivityType.listening, name = "DEBUGGER 🔧")
 
@@ -100,11 +73,11 @@ def main():
         logger.info(f"Prefix: {conf.prefix}")
         launchfinishtime = datetime.now()
         elapsed = launchfinishtime - launchtime
-        logger.debug(f"SizeBot launched in {round((elapsed.total_seconds() * 1000), 3)} milliseconds.\n")
+        logger.debug(f"TemplateBot launched in {round((elapsed.total_seconds() * 1000), 3)} milliseconds.\n")
         status.ready()
 
     async def on_reconnect_ready():
-        logger.error("SizeBot has been reconnected to Discord.")
+        logger.error("TemplateBot has been reconnected to Discord.")
 
     @bot.event
     async def on_ready():
@@ -119,21 +92,16 @@ def main():
     @bot.event
     async def on_message(message):
         await bot.process_commands(message)
-        await edge.on_message(message)
-        await proportions.nickUpdate(message.author)
-        await meicros.on_message(message)
-        await monika.on_message(message)
 
     @bot.event
     async def on_message_edit(before, after):
         if before.content == after.content:
             return
         await bot.process_commands(after)
-        await proportions.nickUpdate(after.author)
 
     @bot.event
     async def on_disconnect():
-        logger.error("SizeBot has been disconnected from Discord!")
+        logger.error("TemplateBot has been disconnected from Discord!")
 
     if not conf.authtoken:
         logger.error(f"Authentication token not found!")

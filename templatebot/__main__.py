@@ -1,4 +1,4 @@
-from sizebot.main import main
+from templatebot.main import main
 
 if __name__ == "__main__":
     main()

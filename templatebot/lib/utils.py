@@ -3,45 +3,6 @@ import pydoc
 import re
 import traceback
 
-re_num = r"\d+\.?\d*"
-re_sizetag = re.compile(r"""
-\s+\[  # start with a left bracket
-# the size bit
-(
-    # a standard quantity + unit
-    (
-        # the quantity bit
-        (
-            (\d{1,3},)*      # which might have some groups of numbers with commas
-            (\d+|[⅛¼⅜½⅝¾⅞])  # but it will definitely have a group of numbers in it, or a single fraction
-            # maybe even a fraction or decimal part
-            (
-                \.\d+       # decimal
-                |[⅛¼⅜½⅝¾⅞]  # or fractional
-            )?
-            # it might even have Es
-            (
-                [Ee]   # uppercase or lowercase E
-                [-+]?  # it might have a sign
-                \d+    # E values are always integers
-            )?
-        )
-        # the unit bit
-        (
-            [YZEPTGMkcmµnpfazy]?    # might have a SI prefix
-            [a-zA-Z]{1,3}           # between 1-3 letters
-            |[\'\"]                 # or ' or "
-        )
-    ){1,2}  # either 1 or 2 units per tag
-    |0      # or the whole unit can just be zero
-    |∞   # or infinity
-)
-# the species bit (optional)
-(,\s*.+)?   # a comma, a space, and some characters
-# and a right bracket at the end of the name
-\]$
-""", re.VERBOSE)
-
 
 def clamp(minVal, val, maxVal):
     return max(minVal, min(maxVal, val))
@@ -272,34 +233,6 @@ def removeCodeBlock(s):
 
     return s
 
-
-def hasSizeTag(s):
-    return re_sizetag.search(s) is not None
-
-
-def stripSizeTag(s):
-    if hasSizeTag(s):
-        re_sizetagloose = re.compile(r"^(.*) \[.*\]$", re.DOTALL)  # TODO: Make this less clumsy. Use the actual regex we made?
-        s_sizetagloose = re.sub(re_sizetagloose, r"\1", s)
-        return s_sizetagloose
-    return s
-
-
-def intToRoman(input):
-    """ Convert an integer to a Roman numeral. """
-
-    if not isinstance(input, type(1)):
-        raise TypeError("expected integer, got %s" % type(input))
-    if not 0 < input < 4000:
-        raise ValueError("Argument must be between 1 and 3999")
-    ints = (1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
-    nums = ('M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I')
-    result = []
-    for i in range(len(ints)):
-        count = int(input / ints[i])
-        result.append(nums[i] * count)
-        input -= ints[i] * count
-    return ''.join(result)
 
 
 def findOne(iterator):

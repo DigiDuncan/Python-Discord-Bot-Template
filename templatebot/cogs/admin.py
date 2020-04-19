@@ -4,9 +4,9 @@ from copy import copy
 import discord
 from discord.ext import commands
 
-from sizebot.discordplus import commandsplus
+from templatebot.discordplus import commandsplus
 
-logger = logging.getLogger("sizebot")
+logger = logging.getLogger("bot")
 
 
 class AdminCog(commands.Cog):
@@ -18,9 +18,9 @@ class AdminCog(commands.Cog):
     )
     @commands.is_owner()
     async def stop(self, ctx):
-        """RIP SizeBot."""
+        """RIP the bot."""
         logger.critical(f"Help, {ctx.author.display_name} is closing me!")
-        await ctx.send("Stopping SizeBot. ☠️")
+        await ctx.send("Stopping templatebot. ☠️")
         await ctx.bot.close()
 
     @commandsplus.command(

@@ -2,7 +2,7 @@ import asyncio
 
 from discord.ext import commands
 
-from sizebot.lib.errors import DigiException
+from templatebot.lib.errors import DigiException
 
 
 class TooManyMenuOptionsException(DigiException):

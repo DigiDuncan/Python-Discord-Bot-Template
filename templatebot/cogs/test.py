@@ -1,8 +1,8 @@
 from discord.ext import commands
-from sizebot.discordplus import commandsplus
+from templatebot.discordplus import commandsplus
 
-from sizebot.lib.constants import emojis
-from sizebot.lib.menu import Menu
+from templatebot.lib.constants import emojis
+from templatebot.lib.menu import Menu
 
 numberemojis = [
     "1️⃣",

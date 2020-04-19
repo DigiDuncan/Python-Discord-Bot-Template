@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from sizebot.lib.utils import chunkMsg
+from templatebot.lib.utils import chunkMsg
 
 
 class AsyncHandler(logging.Handler):

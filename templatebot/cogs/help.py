@@ -5,16 +5,16 @@ from datetime import datetime
 
 import discord
 from discord.ext import commands
-from sizebot.discordplus import commandsplus
+from templatebot.discordplus import commandsplus
 
-from sizebot import __version__
-from sizebot import conf
-from sizebot.lib import objs, userdb, utils
-from sizebot.lib.constants import emojis, ids
-from sizebot.lib.units import SV, WV
+from templatebot import __version__
+from templatebot import conf
+from templatebot.lib import objs, userdb, utils
+from templatebot.lib.constants import emojis, ids
+from templatebot.lib.units import SV, WV
 
 
-logger = logging.getLogger("sizebot")
+logger = logging.getLogger("templatebot")
 
 # name
 # description
@@ -40,11 +40,11 @@ class HelpCog(commands.Cog):
 
     @commandsplus.command()
     async def units(self, ctx):
-        """Get a list of the various units SizeBot accepts."""
+        """Get a list of the various units templatebot accepts."""
         heightunits = [str(u) for u in sorted(SV._units)]
         weightunits = [str(u) for u in sorted(WV._units)]
 
-        embed = discord.Embed(title=f"Units [SizeBot {__version__}]")
+        embed = discord.Embed(title=f"Units [templatebot {__version__}]")
 
         for n, units in enumerate(utils.chunkList(heightunits, math.ceil(len(heightunits) / 3))):
             embed.add_field(name="Height" if n == 0 else "\u200b", value="\n".join(units))
@@ -56,14 +56,14 @@ class HelpCog(commands.Cog):
 
     @commandsplus.command()
     async def objects(self, ctx):
-        """Get a list of the various objects SizeBot accepts."""
+        """Get a list of the various objects templatebot accepts."""
         objectunits = []
         for obj in objs.objects:
             objectunits += obj.singularNames
 
         objectunits.sort()
 
-        embed = discord.Embed(title=f"Objects [SizeBot {__version__}]")
+        embed = discord.Embed(title=f"Objects [templatebot {__version__}]")
 
         for n, units in enumerate(utils.chunkList(objectunits, math.ceil(len(objectunits) / 3))):
             embed.add_field(name="Objects" if n == 0 else "\u200b", value="\n".join(units))
@@ -85,7 +85,7 @@ class HelpCog(commands.Cog):
         embedCount = 1
         pagesPerEmbed = 4
 
-        embeds = [discord.Embed(title=(f"Help [SizeBot {__version__}]" if n == 0 else None)) for n in range(embedCount)]
+        embeds = [discord.Embed(title=(f"Help [templatebot {__version__}]" if n == 0 else None)) for n in range(embedCount)]
 
         commands = sorted((c for c in ctx.bot.commands if not c.hidden), key=lambda c: c.name)
 
@@ -136,7 +136,7 @@ class HelpCog(commands.Cog):
         embed = discord.Embed(
             title=signature,
             description=description
-        ).set_author(name=f"Help [SizeBot {__version__}]")
+        ).set_author(name=f"Help [templatebot {__version__}]")
 
         if cmd.aliases:
             embed.add_field(name="**Aliases:**", value=", ".join(cmd.aliases), inline=False)
@@ -177,7 +177,7 @@ class HelpCog(commands.Cog):
             "```\n")
         await ctx.send(
             f"<@{ctx.author.id}>\n"
-            "***SizeBot3½ by DigiDuncan***\n"
+            "***templatebot3½ by DigiDuncan***\n"
             "*A big program for big people.*\n"  # TODO: Change this slogan.
             "**Written for** *Size Matters*\n"
             "**Coding Assistance** *by Natalie*\n"
@@ -188,10 +188,10 @@ class HelpCog(commands.Cog):
             "**written with** *Atom* and *Visual Studio Code*\n"
             "**Special thanks** *to Reol, jyubari, and Memekip for making the Size Matters server, and Yukio and SpiderGnome for helping moderate it.*\n"
             "**Special thanks** *to the discord.py Community Discord for helping with code*\n"
-            f"**Special thanks** *to the {userdb.count()} users of SizeBot3½.*\n"
+            f"**Special thanks** *to the {userdb.count()} users of templatebot3½.*\n"
             "\n"
-            "\"She [*SizeBot*] is beautiful.\" -- *GoddessArete*\n"
-            "\"I want to put SizeBot in charge of the world government.\" -- *AWK*\n"
+            "\"She [*templatebot*] is beautiful.\" -- *GoddessArete*\n"
+            "\"I want to put templatebot in charge of the world government.\" -- *AWK*\n"
             "\"Um... I like it?\" -- *Goddess Syn*\n"
             "\"I am the only person who has accidentally turned my fetish into a tech support job.\" -- *DigiDuncan*\n"
             "\"\"I am the only person who has accidentally turned my fetish into a tech support job.\"\" -- *Chocola*\n"  # TODO: Change this quote.
@@ -200,11 +200,11 @@ class HelpCog(commands.Cog):
 
     @commandsplus.command()
     async def about(self, ctx):
-        """Get the credits and some facts about SizeBot."""
+        """Get the credits and some facts about templatebot."""
         now = datetime.now()
-        embed = discord.Embed(title = "SizeBot3½", description = "Think of a new slogan!", color = 0x11cccc)
+        embed = discord.Embed(title = "templatebot3½", description = "Think of a new slogan!", color = 0x11cccc)
         embed.set_author(name = "DigiDuncan")
-        embed.set_image(url = "https://cdn.discordapp.com/attachments/650460192009617433/698529527965417552/sizebotlogot.png")
+        embed.set_image(url = "https://cdn.discordapp.com/attachments/650460192009617433/698529527965417552/templatebotlogot.png")
         embed.add_field(name = "Credits",
                         value = ("**Coding Assistance** *by Natalie*\n"
                                  "**Additional Equations** *by Benyovski and Arceus3251*\n"
@@ -212,7 +212,7 @@ class HelpCog(commands.Cog):
                                  "**Beta Tested** *by Kelly, worstgender, and Arceus3251*\n"),
                         inline = False)
         embed.add_field(name = "Servers",
-                        value = ("**[SizeDev](https://discord.gg/j2WpxS)**: support and beta testing for SizeBot and other bots, like Chocola's [*Mei.*](https://discordapp.com/oauth2/authorize?client_id=309220487957839872&scope=bot&permissions=527825985)\n"
+                        value = ("**[SizeDev](https://discord.gg/j2WpxS)**: support and beta testing for templatebot and other bots, like Chocola's [*Mei.*](https://discordapp.com/oauth2/authorize?client_id=309220487957839872&scope=bot&permissions=527825985)\n"
                                  "**[Size Matters](https://discord.gg/UbMxrW)**: a size server moderated by DigiDuncan and others *(see below)*"),
                         inline = False)
         embed.add_field(name = "Technical Details",
@@ -222,11 +222,11 @@ class HelpCog(commands.Cog):
                         value = ("**Special thanks** *to Reol, jyubari, and Memekip for making the Size Matters server, and Yukio and SpiderGnome for helping moderate it.*\n"
                                  "**Special thanks** *to Chocola, the creator of Mei and Arachne, for inspiration and moral support.*\n"
                                  "**Special thanks** *to the discord.py Community Discord for helping with code.*\n"
-                                 f"**Special thanks** *to the {userdb.count()} users of SizeBot3½.*"),
+                                 f"**Special thanks** *to the {userdb.count()} users of templatebot3½.*"),
                         inline = False)
         embed.add_field(name = "Testimonials",
-                        value = ("\"She [SizeBot] is beautiful.\" *-- GoddessArete*\n"
-                                 "\"I want to put SizeBot in charge of the world government.\"* -- AWK*\n"
+                        value = ("\"She [templatebot] is beautiful.\" *-- GoddessArete*\n"
+                                 "\"I want to put templatebot in charge of the world government.\"* -- AWK*\n"
                                  "\"Um... I like it?\" *-- Goddess Syn*\n"
                                  # "\"Fix the bot.\" *-- Natalie*"
                                  "\"I am the only person who has accidentally turned my fetish into a tech support job.\" *-- DigiDuncan*\n"
@@ -242,17 +242,17 @@ class HelpCog(commands.Cog):
         """Give some monetary love to your favorite bot developer!"""
         await ctx.send(
             f"<@{ctx.author.id}>\n"
-            "SizeBot is coded (mainly) and hosted by DigiDuncan, and for absolutely free.\n"
+            "templatebot is coded (mainly) and hosted by DigiDuncan, and for absolutely free.\n"
             "However, if you wish to contribute to DigiDuncan directly, you can do so here:\n"
             "https://donate.digiduncan.com\n"
-            "SizeBot has been a passion project coded over a period of three years and learning a lot of Python along the way.\n"
+            "templatebot has been a passion project coded over a period of three years and learning a lot of Python along the way.\n"
             "Thank you so much for being here throughout this journey!")
 
     @commandsplus.command(
         usage = "<message>"
     )
     async def bug(self, ctx, *, message: str):
-        """Tell the devs there's an issue with SizeBot."""
+        """Tell the devs there's an issue with templatebot."""
         logger.warn(f"{ctx.author.id} ({ctx.author.name}) sent a bug report.")
         await self.bot.get_user(ids.digiduncan).send(f"Bug report from <@{ctx.author.id}>: {message}")
 
@@ -260,7 +260,7 @@ class HelpCog(commands.Cog):
         usage = "<message>"
     )
     async def suggest(self, ctx, *, message: str):
-        """Suggest a feature for SizeBot!"""
+        """Suggest a feature for templatebot!"""
         logger.warn(f"{ctx.author.id} ({ctx.author.name}) sent a bug report.")
         await self.bot.get_user(ids.digiduncan).send(f"Feature request from <@{ctx.author.id}>: {message}")
 
@@ -270,7 +270,7 @@ class HelpCog(commands.Cog):
     async def ping(self, ctx, subcommand: str = ""):
         """Pong!
 
-        Check SizeBot's current latency.
+        Check templatebot's current latency.
 
         Check the bot's latency with `&ping`, or check the Discord API's latency with `&ping discord`."""
         waitMsg = await ctx.send(emojis.loading)
@@ -284,8 +284,8 @@ class HelpCog(commands.Cog):
 
     @commandsplus.command()
     async def changelog(self, ctx):
-        """See what's new in the latest SizeBot!"""
-        await ctx.send("View the changelog here!:\nhttps://github.com/sizedev/SizeBot3AndAHalf/blob/develop/changelog.md")
+        """See what's new in the latest templatebot!"""
+        await ctx.send("View the changelog here!:\nhttps://github.com/sizedev/templatebot3AndAHalf/blob/develop/changelog.md")
 
 
 def setup(bot):

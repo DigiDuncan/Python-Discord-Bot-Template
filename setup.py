@@ -17,7 +17,7 @@ def getRequirements():
 
 
 def getVersion():
-    path = Path(__file__).parent.resolve() / "sizebot" / "__init__.py"
+    path = Path(__file__).parent.resolve() / "templatebot" / "__init__.py"
     with open(path, "r") as fp:
         version_file = fp.read()
     version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
@@ -28,14 +28,14 @@ def getVersion():
 
 
 setuptools.setup(
-    name="sizebot",
+    name="templatebot",
     version=getVersion(),
     author="DigiDuncan",
     author_email="digiduncan@gmail.com",
-    description="SizeBot3, Cogs Edition, rewritten.",
+    description="templatebot3, Cogs Edition, rewritten.",
     long_description=getLongDescription(),
     long_description_content_type="text/markdown",
-    url="https://github.com/sizedev/SizeBot3AndAHalf",
+    url="https://github.com/sizedev/templatebot3AndAHalf",
     python_requires=">=3.8",
     install_requires=getRequirements(),
     packages=setuptools.find_packages(),
@@ -47,7 +47,7 @@ setuptools.setup(
     ],
     entry_points={
         "console_scripts": [
-            "sizebot=sizebot.main:main"
+            "templatebot=templatebot.main:main"
         ]
     }
 )
