@@ -234,7 +234,6 @@ def removeCodeBlock(s):
     return s
 
 
-
 def findOne(iterator):
     try:
         val = next(iterator)

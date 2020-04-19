@@ -8,6 +8,7 @@ from discord.ext import commands
 from digiformatter import styles, logger as digilogger
 
 from templatebot import conf
+from templatebot.lib import status
 from templatebot.lib.discordlogger import DiscordHandler
 
 logging.basicConfig(level=logging.INFO)
@@ -19,24 +20,9 @@ logger.addHandler(dfhandler)
 
 initial_cogs = [
     "admin",
-    "change",
-    "color",
-    "edge",
-    "eval",
     "fun",
     "help",
-    "holiday",
-    "keypad",
-    "naptime",
-    # "rainbow",
-    "register",
-    "roll",
-    "run",
-    "set",
-    "stats",
-    "test",
-    "thistracker",
-    "winks"
+    "test"
 ]
 
 
@@ -58,7 +44,6 @@ def main():
         logger.addHandler(discordhandler)
 
         # Print the splash screen.
-        BANNER = digilogger.addLogLevel("banner", fg="orange_red_1", bg="deep_sky_blue_4b", attr="bold")
         LOGIN = digilogger.addLogLevel("login", fg="cyan")
         logger.log(LOGIN, f"Logged in as: {bot.user.name} ({bot.user.id})\n------")
 
