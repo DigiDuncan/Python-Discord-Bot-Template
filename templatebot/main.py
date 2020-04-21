@@ -42,6 +42,8 @@ def main():
         discordhandler = DiscordHandler(logChannel)
         logger.addHandler(discordhandler)
 
+        conf.load()
+
         # Print the splash screen.
         LOGIN = digilogger.addLogLevel("login", fg="cyan")
         logger.log(LOGIN, f"Logged in as: {bot.user.name} ({bot.user.id})\n------")
