@@ -6,7 +6,7 @@ from discord.ext import commands
 
 from templatebot.discordplus import commandsplus
 
-logger = logging.getLogger("bot")
+logger = logging.getLogger("templatebot")
 
 
 class AdminCog(commands.Cog):
