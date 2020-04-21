@@ -54,6 +54,8 @@ def main():
 
         # Add a special message to bot status if we are running in debug mode
         activity = discord.Game(name = "TemplateBot")
+        if conf.activity:
+            activity = discord.Game(name = conf.activity)
         if sys.gettrace() is not None:
             activity = discord.Activity(type=discord.ActivityType.listening, name = "DEBUGGER 🔧")
 
