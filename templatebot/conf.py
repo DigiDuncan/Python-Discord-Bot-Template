@@ -16,6 +16,7 @@ def getDataDir():
 description = "This is a template. Replace this!"
 prefix = "!"
 name = "TemplateBot"
+activity = "TemplateBot"
 authtoken = None
 logchannelid = None
 
@@ -25,7 +26,7 @@ confpath = datadir / "templatebot.conf"
 
 
 def load():
-    global prefix, name, authtoken, logchannelid
+    global prefix, name, activity, authtoken, logchannelid
     configDict = toml.load(confpath)
 
     # templatebot
@@ -33,6 +34,8 @@ def load():
         prefix = utils.getPath(configDict, "templatebot.prefix")
     if utils.hasPath(configDict, "templatebot.name"):
         name = utils.getPath(configDict, "templatebot.name")
+    if utils.hasPath(configDict, "templatebot.activity"):
+        name = utils.getPath(configDict, "templatebot.activity")
 
     # Discord
     if utils.hasPath(configDict, "discord.authtoken"):
