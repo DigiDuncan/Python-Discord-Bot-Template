@@ -26,6 +26,12 @@ initial_cogs = [
 
 
 def main():
+    try:
+        conf.load()
+    except FileNotFoundError as e:
+        logger.error(f"Configuration file not found: {e.filename}")
+        return
+
     booting = True
     launchtime = datetime.now()
 
@@ -41,8 +47,6 @@ def main():
         logChannel = bot.get_channel(conf.logchannelid)
         discordhandler = DiscordHandler(logChannel)
         logger.addHandler(discordhandler)
-
-        conf.load()
 
         # Print the splash screen.
         LOGIN = digilogger.addLogLevel("login", fg="cyan")
